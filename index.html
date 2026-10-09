@@ -44,6 +44,15 @@
       font-size: 15px;
       letter-spacing: .12em;
     }
+    .topbar { display: flex; align-items: center; justify-content: space-between; }
+    .lang { display: flex; align-items: center; gap: 4px; font-size: 12px; letter-spacing: .12em; color: var(--muted); }
+    .lang button {
+      min-width: 40px; min-height: 40px; padding: 0;
+      border: 0; background: none; font: inherit; letter-spacing: inherit;
+      color: var(--muted); cursor: pointer;
+    }
+    .lang button[aria-pressed="true"] { color: var(--ink); border-bottom: 1px solid var(--ink); }
+    .lang button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
     main { flex: 1; padding: 32px 0 40px; }
 
     /* 重なり合う円 */
@@ -114,7 +123,14 @@
 </head>
 <body>
   <div class="page">
-    <a class="mark" href="#top" aria-label="YUUKI HORIKOSHI">YH.</a>
+    <div class="topbar">
+      <a class="mark" href="#top" aria-label="YUUKI HORIKOSHI">YH.</a>
+      <div class="lang" role="group" aria-label="Language / 言語">
+        <button type="button" data-lang="ja" aria-pressed="true">JA</button>
+        <span aria-hidden="true">/</span>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+    </div>
 
     <main id="top">
       <div class="shapes" aria-hidden="true">
@@ -128,34 +144,34 @@
       <p class="jp">堀越 優輝</p>
 
       <div class="hello">
-        <p>はじめまして、堀越優輝です。</p>
-        <p>名刺を受け取ってくださり、ありがとうございます。</p>
-        <p>好きな方法で、気軽につながってください。</p>
+        <p data-ja="はじめまして、堀越優輝です。" data-en="Hello, I'm Yuuki Horikoshi.">はじめまして、堀越優輝です。</p>
+        <p data-ja="名刺を受け取ってくださり、ありがとうございます。" data-en="Thank you for taking my card.">名刺を受け取ってくださり、ありがとうございます。</p>
+        <p data-ja="好きな方法で、気軽につながってください。" data-en="Feel free to connect in whichever way suits you.">好きな方法で、気軽につながってください。</p>
       </div>
 
-      <p class="connect-label">つながる</p>
+      <p class="connect-label" data-ja="つながる" data-en="Connect">つながる</p>
       <ul class="links">
         <li>
           <a class="row" href="https://line.me/ti/p/idQRszzabW" target="_blank" rel="noopener noreferrer">
-            <span><span class="name">LINE</span><span class="note">友だち追加はこちらから</span></span>
+            <span><span class="name">LINE</span><span class="note" data-ja="友だち追加はこちらから" data-en="Add me as a friend">友だち追加はこちらから</span></span>
             <span class="arrow" aria-hidden="true">↗</span>
           </a>
         </li>
         <li>
           <a class="row" href="https://www.instagram.com/yuuki.0928/" target="_blank" rel="noopener noreferrer">
-            <span><span class="name">Instagram</span><span class="note">フォロー・DMはこちらから</span></span>
+            <span><span class="name">Instagram</span><span class="note" data-ja="フォロー・DMはこちらから" data-en="Follow or send a DM">フォロー・DMはこちらから</span></span>
             <span class="arrow" aria-hidden="true">↗</span>
           </a>
         </li>
         <li>
           <a class="row" href="https://wa.me/yuuki.0928?s=p" target="_blank" rel="noopener noreferrer">
-            <span><span class="name">WhatsApp</span><span class="note">メッセージはこちらから</span></span>
+            <span><span class="name">WhatsApp</span><span class="note" data-ja="メッセージはこちらから" data-en="Send me a message">メッセージはこちらから</span></span>
             <span class="arrow" aria-hidden="true">↗</span>
           </a>
         </li>
         <li>
           <a class="row" href="mailto:yukkiyuyutarou@gmail.com">
-            <span><span class="name">メール</span><span class="note">yukkiyuyutarou@gmail.com</span></span>
+            <span><span class="name" data-ja="メール" data-en="Email">メール</span><span class="note">yukkiyuyutarou@gmail.com</span></span>
             <span class="arrow" aria-hidden="true">↗</span>
           </a>
         </li>
@@ -164,5 +180,40 @@
 
     <footer>© YUUKI HORIKOSHI</footer>
   </div>
+
+  <script>
+    (function () {
+      var buttons = document.querySelectorAll('.lang button');
+      var items = document.querySelectorAll('[data-ja]');
+
+      function apply(lang) {
+        document.documentElement.lang = lang;
+        items.forEach(function (el) { el.textContent = el.getAttribute('data-' + lang); });
+        buttons.forEach(function (b) {
+          b.setAttribute('aria-pressed', String(b.getAttribute('data-lang') === lang));
+        });
+      }
+
+      function initial() {
+        var q = new URLSearchParams(location.search).get('lang');
+        if (q === 'ja' || q === 'en') return q;
+        try {
+          var saved = localStorage.getItem('lang');
+          if (saved === 'ja' || saved === 'en') return saved;
+        } catch (e) {}
+        return (navigator.language || 'ja').toLowerCase().indexOf('ja') === 0 ? 'ja' : 'en';
+      }
+
+      buttons.forEach(function (b) {
+        b.addEventListener('click', function () {
+          var lang = b.getAttribute('data-lang');
+          apply(lang);
+          try { localStorage.setItem('lang', lang); } catch (e) {}
+        });
+      });
+
+      apply(initial());
+    })();
+  </script>
 </body>
 </html>
