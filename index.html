@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f6f3ec">
-  <meta name="description" content="YUUKI HORIKOSHI（堀越 優輝）— InstagramとLINEへのリンク。">
+  <meta name="description" content="堀越 優輝（YUUKI HORIKOSHI）— はじめまして。InstagramやLINE、メールでつながれます。">
   <title>YUUKI HORIKOSHI</title>
   <style>
     :root {
@@ -12,9 +12,9 @@
       --bg: #f6f3ec;
       --ink: #2c4536;
       --sage: #a8b8a2;
-      --sage-soft: #c9d4c3;
+      --sage-soft: #e3e8dd;
       --sand: #e7dcc5;
-      --muted: #7a8579;
+      --muted: #75806f;
       --line: #d9d6cb;
       --serif: Georgia, "Times New Roman", serif;
     }
@@ -25,7 +25,7 @@
       background: var(--bg);
       color: var(--ink);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Noto Sans JP", sans-serif;
-      line-height: 1.7;
+      line-height: 1.8;
       -webkit-text-size-adjust: 100%;
     }
     a { color: inherit; text-decoration: none; }
@@ -33,39 +33,27 @@
 
     .page {
       min-height: 100%;
-      width: min(100% - 40px, 560px);
+      width: min(100% - 40px, 520px);
       margin-inline: auto;
       display: flex;
       flex-direction: column;
       padding: 24px 0 28px;
     }
-
     .mark {
       font-family: var(--serif);
       font-size: 15px;
       letter-spacing: .12em;
     }
-
-    main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 28px 0 36px;
-    }
+    main { flex: 1; padding: 32px 0 40px; }
 
     /* 重なり合う円 */
     .shapes {
       position: relative;
-      width: min(72vw, 300px);
+      width: min(46vw, 190px);
       aspect-ratio: 1;
-      margin: 0 0 34px;
+      margin: 0 0 28px;
     }
-    .shapes span {
-      position: absolute;
-      border-radius: 50%;
-      mix-blend-mode: multiply;
-    }
+    .shapes span { position: absolute; border-radius: 50%; mix-blend-mode: multiply; }
     .shapes .c1 { width: 64%; aspect-ratio: 1; left: 0; top: 8%; background: var(--sage); }
     .shapes .c2 { width: 52%; aspect-ratio: 1; right: 0; top: 0; background: var(--sand); }
     .shapes .c3 { width: 40%; aspect-ratio: 1; left: 38%; bottom: 0; background: var(--ink); opacity: .9; }
@@ -78,39 +66,36 @@
       margin: 0;
       font-family: var(--serif);
       font-weight: 500;
-      font-size: clamp(40px, 12.5vw, 76px);
-      line-height: 1.04;
-      letter-spacing: -.02em;
+      font-size: clamp(24px, 7vw, 34px);
+      line-height: 1.2;
+      letter-spacing: .04em;
     }
-    .jp {
-      margin: 14px 0 0;
-      font-size: 13px;
-      letter-spacing: .24em;
+    .jp { margin: 6px 0 0; font-size: 13px; letter-spacing: .24em; color: var(--muted); }
+
+    .hello { margin: 32px 0 0; font-size: 14px; color: #3f5646; }
+    .hello p { margin: 0 0 6px; }
+
+    .connect-label {
+      margin: 40px 0 8px;
+      font-size: 12px;
+      letter-spacing: .2em;
       color: var(--muted);
     }
-
-    .links {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-      margin-top: 40px;
-    }
-    .btn {
+    .links { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+    .links li { border-bottom: 1px solid var(--line); }
+    .row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      min-height: 54px;
-      padding: 0 22px;
-      border: 1px solid var(--ink);
-      border-radius: 999px;
-      font-size: 14px;
-      letter-spacing: .08em;
-      transition: background-color .2s ease, color .2s ease;
+      gap: 16px;
+      min-height: 68px;
+      padding: 10px 6px;
+      transition: background-color .2s ease;
     }
-    .btn.primary { background: var(--ink); color: var(--bg); }
-    .btn.primary:hover { background: #3d5c49; }
-    .btn.ghost:hover { background: var(--sage-soft); }
-    .btn .arrow { font-size: 15px; }
+    .row:hover { background: var(--sage-soft); }
+    .row .name { display: block; font-size: 16px; letter-spacing: .06em; }
+    .row .note { display: block; font-size: 12px; color: var(--muted); letter-spacing: .02em; word-break: break-all; }
+    .row .arrow { flex: none; font-size: 16px; }
 
     footer {
       padding-top: 18px;
@@ -119,13 +104,11 @@
       letter-spacing: .12em;
       color: var(--muted);
     }
-
     @media (min-width: 640px) {
       .page { padding-top: 36px; padding-bottom: 36px; }
-      .links { grid-template-columns: 1fr 1fr; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .btn { transition: none; }
+      .row { transition: none; }
     }
   </style>
 </head>
@@ -141,17 +124,36 @@
         <span class="c4"></span>
       </div>
 
-      <h1>YUUKI<br>HORIKOSHI</h1>
+      <h1>YUUKI HORIKOSHI</h1>
       <p class="jp">堀越 優輝</p>
 
-      <nav class="links" aria-label="リンク">
-        <a class="btn primary" href="https://www.instagram.com/yuuki.0928/" target="_blank" rel="noopener noreferrer">
-          <span>Instagram</span><span class="arrow" aria-hidden="true">↗</span>
-        </a>
-        <a class="btn ghost" href="https://line.me/ti/p/idQRszzabW" target="_blank" rel="noopener noreferrer">
-          <span>LINE</span><span class="arrow" aria-hidden="true">↗</span>
-        </a>
-      </nav>
+      <div class="hello">
+        <p>はじめまして、堀越優輝です。</p>
+        <p>名刺を受け取ってくださり、ありがとうございます。</p>
+        <p>好きな方法で、気軽につながってください。</p>
+      </div>
+
+      <p class="connect-label">つながる</p>
+      <ul class="links">
+        <li>
+          <a class="row" href="https://line.me/ti/p/idQRszzabW" target="_blank" rel="noopener noreferrer">
+            <span><span class="name">LINE</span><span class="note">友だち追加はこちらから</span></span>
+            <span class="arrow" aria-hidden="true">↗</span>
+          </a>
+        </li>
+        <li>
+          <a class="row" href="https://www.instagram.com/yuuki.0928/" target="_blank" rel="noopener noreferrer">
+            <span><span class="name">Instagram</span><span class="note">フォロー・DMはこちらから</span></span>
+            <span class="arrow" aria-hidden="true">↗</span>
+          </a>
+        </li>
+        <li>
+          <a class="row" href="mailto:yukkiyuyutarou@gmail.com">
+            <span><span class="name">メール</span><span class="note">yukkiyuyutarou@gmail.com</span></span>
+            <span class="arrow" aria-hidden="true">↗</span>
+          </a>
+        </li>
+      </ul>
     </main>
 
     <footer>© YUUKI HORIKOSHI</footer>
